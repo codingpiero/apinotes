@@ -5,6 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
+    "start":"node api/server.js",
     "start:prod": "cross-env NODE_ENV=production node api/server.js",
     "start:dev": "cross-env NODE_ENV=development nodemon api/server.js"
   },
@@ -12,7 +13,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cross-env": "^10.1.0",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "morgan": "^1.11.0",
@@ -21,6 +21,8 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.1.14",
+    "cross-env": "^10.1.0"
+
   }
 }
