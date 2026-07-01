@@ -8,7 +8,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
-app.use('/api/v1/notes',notes);
+app.use('/api/v1/note',notes);
 
 app.use('/',(req,res)=>{
     res.json({
