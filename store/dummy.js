@@ -1,25 +1,41 @@
-const DB = {
-    notes:[
-        {id_note:1,id_user:1,title:'sistema de papeleta vehicular',description:'realizar una api para el sistema de papelete vehicular de un entidad municipal,provincial o regional.'},
-        {id_note:2,id_user:2,title:'sistema de numeracion',description:'realizar una api rest para el sistema numeracion de una entidad municipal, provincial o regional.'},
-    ],
-    user:[
-        {id_user:1,name:'suemi',paternal_surname:'laura',maternal_surname:'chang',nickname:'suemi'},
-        {id_user:2,name:'katsumi',paternal_surname:'chavez',maternal_surname:'flores',nickname:'kat'},
-    ]
-};
+const DB = {};
 
-async function list(TABLA,id){
-    return DB[TABLA].filter(data => data.id_user = id);
+async function list(TABLA){
+    if(!DB[TABLA]){
+        DB[TABLA] = [];
+    }
+    return DB[TABLA];
 }
-async function get(){}
-async function update(){}
-async function remove(){}
+async function get(TABLA,id){
+    const tabla = await list(TABLA);
+    console.log(tabla);
+    console.log(id);
+    return tabla.filter(register => register.id === id);
+};
+async function create(TABLA,data){
+    let tabla = await list(TABLA);
+    tabla.push(data)
+    return [data];
+};
+async function update(TABLA,id,data){
+    const tabla = await list(TABLA);
+    const oldData = tabla.find(register => register.id === id);
+    const newData = {...oldData,...data};
+    const result = [newData];
+    return result;
+};
+async function remove(TABLA,id){
+    const tabla = await list(TABLA);
+    let index = tabla.findIndex(register => register.id === id);
+    if(index === -1) return [];
+    return tabla.splice(index,1);
+};
 
 
 export default {
     list,
     get,
+    create,
     update,
     remove
 }
