@@ -12,7 +12,13 @@ router.get('/',list);
 
 // FUNCTION INTERNAL
 function list (req,res){
-    res.send('list usuarios');
+    Controller.list()
+    .then(resp => {
+        response.success(req,res,resp.status,resp.message,resp?.info,resp?.result);
+    })
+    .catch(err => {
+        res.send(err);
+    })
 }
 function create(req,res){
     const created = audit.created_resource(req);

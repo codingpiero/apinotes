@@ -2,7 +2,7 @@ const success = (req,res,httpcode,message,info,result) => {
     res.status(httpcode).json({
         success:true,
         sist:'appnote',
-        message:'',
+        message:message,
         info,
         result,
     });

@@ -5,7 +5,15 @@ let pool = new Pool({
     connectionString:config.POSTGRESQL.URI,
 });
 
-async function list(){};
+async function list(){
+    const response = await pool.query(`
+        SELECT id,name,CONCAT(paternal_surname,' ',maternal_surname) as apellidos ,nickname,active 
+        FROM notes.user
+        WHERE
+        active = true 
+    `);
+    return {data:response.rows,total:response.rowCount};
+};
 async function create(data){
     const client = await pool.connect();
     try{

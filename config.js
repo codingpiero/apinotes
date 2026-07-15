@@ -14,5 +14,8 @@ const config = {
     POSTGRESQL:{
         URI:process.env.POSTGRES_URL
     },
+    JWT:{
+        SECRET_KEY:process.env.SECRET_KEY
+    }
 }
 export default config;
