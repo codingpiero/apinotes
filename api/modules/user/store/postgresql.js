@@ -8,9 +8,7 @@ let pool = new Pool({
 async function list(){
     const response = await pool.query(`
         SELECT id,name,CONCAT(paternal_surname,' ',maternal_surname) as apellidos ,nickname,active 
-        FROM notes.user
-        WHERE
-        active = true 
+        FROM notes.user 
     `);
     return {data:response.rows,total:response.rowCount};
 };
@@ -58,7 +56,62 @@ async function create(data){
         throw (err);
     }
 };
+async function toggleStatus(data){
+    let result = await pool.query(`
+        UPDATE notes.user 
+        SET
+        active = $1 
+        WHERE
+        nickname = $2`,[
+            data.active,
+            data.nickname
+        ]);
+    return {data:result.rows,total:result.rowCount};
+}
+
+async function get(nickname){
+    const result = await pool.query(`
+        SELECT 
+        name,
+        paternal_surname,
+        maternal_surname,
+        nickname,
+        active,
+        created_by_user,
+        created_at 
+        FROM 
+        notes.user
+        WHERE
+        nickname = $1`,[nickname]);
+    return result.rows
+}
+
+async function update(data){
+    const result = await pool.query(`
+        UPDATE notes.user
+        SET
+        name = $1,
+        paternal_surname = $2,
+        maternal_surname = $3,
+        email = $4
+        WHERE 
+        nickname = $5
+        `,
+        [
+            data.name,
+            data.paternal_surname,
+            data.maternal_surname,
+            data.email,
+            data.nickname
+        ]);
+    return result.rowCount;
+
+}
+
 export default {
     list,
     create,
+    toggleStatus,
+    get,
+    update,
 }
