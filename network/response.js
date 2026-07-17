@@ -12,7 +12,7 @@ const error = (req,res,httpcode,message) => {
     res.status(httpcode).json({
         success:false,
         sist:'appnote',
-        message:''
+        message
     });
 }
 

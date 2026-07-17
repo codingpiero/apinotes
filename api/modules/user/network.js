@@ -26,7 +26,6 @@ function updateStatusUser(req,res){
 function get(req,res){
     Controller.get(req.params.nickname)
     .then(resp => {
-        console.log(resp);
         response.success(req,res,resp.status,resp.message,resp?.info,resp?.result);
     })
     .catch(err => {

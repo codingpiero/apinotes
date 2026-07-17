@@ -20,7 +20,6 @@ function Controller(injectedStore){
             ...body,
             password: await encrypt.generatedEncryption(body.password),
             ...created};
-        console.log(data);  
         const response = await store.create(data);
         if(response.length === 0){
             return {status:200,message:`Usuario ${body.nickname} no creado.`}
@@ -45,7 +44,6 @@ function Controller(injectedStore){
             return {status:200,message:`No se encontro ${body.nickname} registrado.`};
         }
         let response = await store.toggleStatus(body);
-        console.log(response);
         return {status:202,message:'Operacion realizada.'};
     }
     async function get(nickname){
