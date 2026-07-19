@@ -3,6 +3,7 @@ import config from "../../../../config.js";
 
 let pool = new Pool({
     connectionString:config.POSTGRESQL.URI,
+    ssl: process.env.NODE_ENV === "production" ? {rejectUnauthorized:false}:false
 });
 
 
