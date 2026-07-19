@@ -1,3 +1,5 @@
+import pkg from "./package.json" with {type:"json"};
+
 import express from "express";
 import morgan from "morgan";
 import user from "./api/modules/user/network.js";
@@ -21,8 +23,9 @@ app.use('/api/v1/user',
     security.verifyRoles(4,5),user);
 app.get('/',(req,res)=>{
     res.send({
-        sist:'appnote',
-        description:'',
+        sist: pkg.name,
+        description: pkg.description,
+        version: pkg.version
     });
 });
 

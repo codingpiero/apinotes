@@ -1,7 +1,7 @@
 {
   "name": "apinote",
   "version": "1.0.0",
-  "description": "",
+  "description": "api rest para listar,crear,actualizar y eliminar notas personales.",
   "main": "server.js",
   "type": "module",
   "scripts": {
