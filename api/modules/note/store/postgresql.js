@@ -1,8 +1,9 @@
 import {Pool} from "pg";
 import config from "../../../../config.js";
 
-const pool = new Pool({
+let pool = new Pool({
     connectionString:config.POSTGRESQL.URI,
+    ssl: process.env.NODE_ENV === "production" ? {rejectUnauthorized:false}:false
 });
 
 async function list(id_user){

@@ -6,7 +6,7 @@ import user from "./api/modules/user/network.js";
 import auth from "./api/modules/auth/network.js";
 import note from "./api/modules/note/network.js";
 import security from "./api/middlewares/security.js";
-
+import config from "./config.js";
 
 const app = express();
 
@@ -20,7 +20,7 @@ app.use('/api/v1/note',
     ,note);
 app.use('/api/v1/user',
     security.validToken,
-    security.verifyRoles(4,5),user);
+    security.verifyRoles(config.API.ROLE_ADMIN,config.API.ROLE_SOPORTE),user);
 app.get('/',(req,res)=>{
     res.send({
         sist: pkg.name,
