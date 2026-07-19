@@ -9,7 +9,7 @@ dotenv.config({
 
 const config = {
     API:{
-        PORT:3000 || process.env.API_PORT,
+        PORT: process.env.API_PORT || 3000,
     },
     POSTGRESQL:{
         URI:process.env.POSTGRES_URL
