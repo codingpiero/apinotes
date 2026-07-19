@@ -23,12 +23,46 @@ function Controller(injectedStore){
             ...audit
         }
         const result = await store.create(data);
-        console.log(result);
         return {status:201,message:'Nota creada correctamente.'};
+    }
+    async function remove(id){
+        let codigo = Number(id);
+        const validCodigo = dto.schemaCodigoNote.safeParse(codigo);
+        if(!validCodigo.success){
+            return {status:200,message:'Codigo Invalido.'};
+        }
+        const response = await store.remove(codigo);
+        if(response.total === 0 ){
+            return {status:200,message:'Codigo no encontrado.'};
+        }
+        return {status:200,message:'Nota eliminada correctamente.'};
+    }
+    async function update(id,body,audit){
+        let codigo = Number(id);
+        let validCodigo = dto.schemaCodigoNote.safeParse(codigo);
+        if(!validCodigo.success){
+            return {status:200,message:'Operacion no realizada.'};
+        }
+        let validBody = dto.schemaUpdateNote.safeParse(body);
+        if(!validBody.success){
+            return {status:400,message:'Informacion invalida'};
+        }
+        const data = {
+            id:codigo,
+            ...body,
+            ...audit
+        }        
+        const response = await store.update(data);
+        if(response.total === 0){
+            return {status:200,message:'Operacion no realizada.'};
+        }
+        return {status:201,message:'Operacion realizada correctamente.'};
     }
     return {
         list,
-        create
+        create,
+        remove,
+        update,
     }
 }
 

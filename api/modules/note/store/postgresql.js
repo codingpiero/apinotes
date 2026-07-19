@@ -50,7 +50,43 @@ async function create(data){
     return {data:result.rows,total:result.rowCount}
 }
 
+async function remove(id){
+    const result = await pool.query(`DELETE FROM notes.note 
+                WHERE 
+                id = $1`,[id]);
+    return {total:result.rowCount};
+}
+
+async function update(data){
+    const result = await pool.query(`
+        UPDATE notes.note
+        SET
+        title = $1,
+        description = $2,
+        date_start = $3,
+        modified_by_user = $4,
+        modified_at = $5,
+        modified_at_host = $6,
+        modified_by_ip = $7
+        WHERE
+        id = $8
+        `,
+        [
+            data.title,
+            data.description,
+            data.date_start,
+            data.modified_by_user,
+            data.modified_at,
+            data.modified_at_host,
+            data.modified_by_ip,
+            data.id
+        ]);
+    return {data:result.rows,total:result.rowCount};
+}
+
 export default {
     list,
     create,
+    remove,
+    update
 }
