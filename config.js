@@ -9,7 +9,7 @@ dotenv.config({
 
 const config = {
     API:{
-        PORT: process.env.API_PORT || 3000,
+        PORT: process.env.PORT || 3000,
         ROLE_USER:1,
         ROLE_ADMIN:2,
         ROLE_SOPORTE:3
