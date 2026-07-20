@@ -7,9 +7,11 @@ import auth from "./api/modules/auth/network.js";
 import note from "./api/modules/note/network.js";
 import security from "./api/middlewares/security.js";
 import config from "./config.js";
+import cors from "cors";
 
 const app = express();
 
+app.use(cors);
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(morgan('dev'));
