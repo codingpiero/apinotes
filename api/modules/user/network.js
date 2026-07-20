@@ -58,6 +58,7 @@ function create(req,res){
         res.send(resp);
     })
     .catch(err => {
+        console.log(err);
         response.error(req,res,500,'Ocurrio un error al registrar el  usuario.');
     })
 }
