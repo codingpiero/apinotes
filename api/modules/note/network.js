@@ -2,6 +2,7 @@ import express from "express";
 import Controller from "./index.js";
 import response from "../../../network/response.js";
 import audit from "../../utils/audit.js";
+import log from "../../lib/log.js";
 
 let router = express.Router()
 
@@ -18,6 +19,7 @@ function remove(req,res){
         response.success(req,res,resp.status,resp.message,resp?.info,resp?.data);
     })
     .catch(err => {
+        log.error(err);
         response.error(req,res,500,'Ocurrio un error al eliminar la nota.');
     });
 }
@@ -28,7 +30,7 @@ function update(req,res){
         res.send(resp);
     })
     .catch(err => {
-        console.log(err);
+        log.error(err);
         response.error(req,res,500,'Ocurrio un error al actualizar la informacion de la nota.');
     })
 }
@@ -38,7 +40,7 @@ function list(req,res){
         res.send(resp);
     })
     .catch(err => {
-        response.error(req,res,500,'Ocurrio un error al mostrar tus notas.');
+        log.error(err);        response.error(req,res,500,'Ocurrio un error al mostrar tus notas.');
     })
 }
 function create(req,res){
@@ -48,8 +50,9 @@ function create(req,res){
         res.send(resp);
     })
     .catch(err => {
+        log.error(err);
         response.error(req,res,500,'Ocurrio un error al registrar la nota.')
-    })
+    });
 }
 
 export default router;
